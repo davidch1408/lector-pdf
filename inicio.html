@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extractor de texto PDF</title>
+</head>
+<body>
+    <h1>Extractor de texto PDF</h1>
+
+    <!-- Formulario para subir el archivo -->
+    <form id="form_pdf" action="http://127.0.0.1:5000/procesar_pdf" method="post" enctype="multipart/form-data">
+        <input type="file" name="archivo_pdf" id="archivo_pdf" accept="application/pdf" required>
+        <button type="submit">Subir y Extraer</button>
+    </form>
+
+    <div>
+        <label for="nombre">Nombres</label>
+        <input type="text" name="nombre" id="nombre" placeholder="nombre(s)" class="w-full p-2 rounded" />
+    </div>
+
+    <div>
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" placeholder="email" class="w-full p-2 rounded" />
+    </div>
+
+    <div>
+        <label for="telefono">Teléfono</label>
+        <input type="text" name="telefono" id="telefono" placeholder="telefono" class="w-full p-2 rounded" />
+    </div>
+
+    <script>
+        document.getElementById('form_pdf').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            
+            // Enviar el archivo PDF al servidor
+            const response = await fetch('/procesar_pdf', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Parsear la respuesta JSON y rellenar los campos
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('nombre').value = data.nombre || '';
+                document.getElementById('email').value = data.email || '';
+                document.getElementById('telefono').value = data.telefono || '';
+            } else {
+                alert('Error al procesar el archivo');
+            }
+        });
+    </script>
+</body>
+</html>
