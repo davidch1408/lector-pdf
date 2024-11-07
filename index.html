@@ -35,7 +35,7 @@
             const formData = new FormData(this);
             
             // Enviar el archivo PDF al servidor
-            const response = await fetch('/procesar_pdf', {
+            const response = await fetch('http://127.0.0.1:5000/procesar_pdf', {
                 method: 'POST',
                 body: formData
             });

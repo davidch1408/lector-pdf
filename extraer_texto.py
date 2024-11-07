@@ -1,8 +1,10 @@
 import fitz  # PyMuPDF
 import re
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Importa CORS
 
 app = Flask(__name__)
+CORS(app)  # Aplica CORS a tu app
 
 def extract_text_from_pdf(file):
     # Abre el archivo PDF desde un objeto de archivo
@@ -46,8 +48,3 @@ def procesar_pdf():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-# Código de prueba (opcional, no se ejecuta con Flask):
-# pdf_path = "D:\\Documents\\pdf_prueba.pdf"
-# info = process_pdf(pdf_path)
-# print("Información extraída:", info)
