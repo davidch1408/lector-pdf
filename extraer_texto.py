@@ -15,17 +15,17 @@ def extract_text_from_pdf(file):
     return text
 
 def extract_contact_info(text):
-    # Buscar el correo electrónico
-    email_match = re.search(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", text)
-    email = email_match.group(0) if email_match else None
-
-    # Buscar el número de teléfono (formato común internacional y local)
-    phone_match = re.search(r"\+?\d{1,4}[\s-]?\(?\d{2,4}\)?[\s-]?\d{3,4}[\s-]?\d{3,4}", text)
-    phone = phone_match.group(0) if phone_match else None
-
     # Asumimos que el nombre podría estar en las primeras líneas del CV (esto es simplificado)
     name_match = re.search(r"(?<=\n)[A-Z][a-z]+(?:\s[A-Z][a-z]+)+", text)
     name = name_match.group(0) if name_match else None
+    
+    # Buscar el correo electrónico
+    email_match = re.search(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}", text)
+    email = email_match.group(0) if email_match else None
+    
+    # Buscar el número de teléfono (formato común internacional y local)
+    phone_match = re.search(r"\+?\d{1,4}[\s-]?\(?\d{2,4}\)?[\s-]?\d{3,4}[\s-]?\d{3,4}", text)
+    phone = phone_match.group(0) if phone_match else None
 
     return {
         "name": name,

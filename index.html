@@ -43,12 +43,14 @@
             // Parsear la respuesta JSON y rellenar los campos
             if (response.ok) {
                 const data = await response.json();
-                document.getElementById('nombre').value = data.nombre || '';
+                document.getElementById('nombre').value = data.name || '';
                 document.getElementById('email').value = data.email || '';
-                document.getElementById('telefono').value = data.telefono || '';
+                document.getElementById('telefono').value = data.phone || '';
+
+                console.log(data)
             } else {
                 alert('Error al procesar el archivo');
-            }
+            }            
         });
     </script>
 </body>
